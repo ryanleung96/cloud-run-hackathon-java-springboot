@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import lombok.Data;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -13,14 +15,17 @@ import java.util.Random;
 @RestController
 public class Application {
 
+  @Data
   static class Self {
     public String href;
   }
 
+  @Data
   static class Links {
     public Self self;
   }
 
+  @Data
   static class PlayerState {
     public Integer x;
     public Integer y;
@@ -29,11 +34,13 @@ public class Application {
     public Integer score;
   }
 
+  @Data
   static class Arena {
     public List<Integer> dims;
     public Map<String, PlayerState> state;
   }
 
+  @Data
   static class ArenaUpdate {
     public Links _links;
     public Arena arena;
