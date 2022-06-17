@@ -32,5 +32,38 @@ public class Function {
         return resultList;
         
     }
+    
+  public boolean isOthersInRange(PlayerState self, List<PlayerState> others) {
+    Location selfLoc = new Location(self.x, self.y);
+    switch (self.getDirection()) {
+      case "N":
+        return isOthersInFrontOfNorth(selfLoc, others);
+      case "E":
+        return isOthersInFrontOfEast(selfLoc, others);
+      case "S":
+        return isOthersInFrontOfSouth(selfLoc, others);
+      case "W":
+        return isOthersInFrontOfWest(selfLoc, others);
+    }
+
+    return false;
+  }
+
+
+  private boolean isOthersInFrontOfNorth(Location selfLoc, List<PlayerState> others) {
+    return others.stream().anyMatch(player -> player.y <= (selfLoc.y - 3));
+  }
+
+  private boolean isOthersInFrontOfEast(Location selfLoc, List<PlayerState> others) {
+    return others.stream().anyMatch(player -> player.x >= (selfLoc.x + 3));
+  }
+
+  private boolean isOthersInFrontOfSouth(Location selfLoc, List<PlayerState> others) {
+    return others.stream().anyMatch(player -> player.y >= (selfLoc.y + 3));
+  }
+
+  private boolean isOthersInFrontOfWest(Location selfLoc, List<PlayerState> others) {
+    return others.stream().anyMatch(player -> player.x <= (selfLoc.x - 3));
+  }
 
 }
