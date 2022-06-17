@@ -1,5 +1,6 @@
 package hello;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.WebDataBinder;
@@ -14,6 +15,9 @@ import java.util.Random;
 @SpringBootApplication
 @RestController
 public class Application {
+
+  @Autowired
+  Function function;
 
   @Data
   static class Self {
@@ -63,6 +67,8 @@ public class Application {
   @PostMapping("/**")
   public String index(@RequestBody ArenaUpdate arenaUpdate) {
     System.out.println(arenaUpdate);
+    PlayerState myselfState = function.locateList(arenaUpdate, true).get(0);
+    List<PlayerState> otherState = function.locateList(arenaUpdate, false);
     String[] commands = new String[]{"F", "R", "L", "T"};
     int i = new Random().nextInt(4);
     return commands[i];
